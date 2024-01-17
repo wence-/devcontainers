@@ -1,0 +1,6 @@
+{
+  "name": "Install emacs",
+  "id": "emacs",
+  "version": "0.alpha",
+  "description": "A feature to install Emacs"
+}

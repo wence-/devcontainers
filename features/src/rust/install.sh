@@ -12,6 +12,7 @@ UPDATE_RC="${UPDATERC:-"true"}";
 UPDATE_RUST="${UPDATERUST:-"false"}";
 RUST_VERSION="${VERSION:-"latest"}";
 RUSTUP_PROFILE="${PROFILE:-"minimal"}";
+ADDITIONAL_TOOLCHAIN="${ADDITIONALTOOLCHAIN:-"none"}"
 
 # Ensure we're in this feature's directory during build
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
@@ -132,6 +133,11 @@ echo "Installing common Rust dependencies...";
 
 rustup component add rust-analyzer rust-src rustfmt clippy 2>&1;
 
+echo "Asked for additional toolchain: ${ADDITIONAL_TOOLCHAIN}"
+if [ "${ADDITIONAL_TOOLCHAIN}" != "none" ]; then
+    echo "Installing additional toolchain ${ADDITIONAL_TOOLCHAIN}"
+    rustup toolchain install ${ADDITIONAL_TOOLCHAIN}
+fi
 # Add CARGO_HOME, RUSTUP_HOME and bin directory into bashrc/zshrc files (unless disabled)
 if [ "${UPDATE_RC}" = "true" ]; then
     vars_=();

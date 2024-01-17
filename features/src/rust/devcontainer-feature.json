@@ -47,6 +47,11 @@
     "updateRust": {
       "type": "boolean",
       "default": false
+    },
+    "additionaltoolchain": {
+      "type": "string",
+      "default": "",
+      "description": "Arguments to rustup toolchain install to add an additional toolchain."
     }
   },
   "containerEnv": {

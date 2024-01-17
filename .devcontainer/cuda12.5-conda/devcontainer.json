@@ -13,16 +13,51 @@
     "--name",
     "${localEnv:USER:anon}-rapids-${localWorkspaceFolderBasename}-24.12-cuda12.5-conda"
   ],
+  "containerEnv": {
+    "OMP_NUM_THREADS": "1",
+    "PARALLEL_LEVEL": "16",
+    "IPYTHONDIR": "/home/coder/.config/ipython/"
+  },
   "hostRequirements": {"gpu": "optional"},
   "features": {
     "./features/src/utils": {},
-    "./features/src/rapids-build-utils": {}
+    "./features/src/rapids-build-utils": {},
+    "./features/local/emacs": {},
+    "./features/local/utils": {},
+    "./features/src/rust": {
+      "version": "latest",
+      "profile": "default",
+      "additionaltoolchain": "nightly-2024-08-26 --profile default -c rust-analyzer rust-src clippy rustfmt miri cargo"
+    },
+    "ghcr.io/devcontainers/features/node:1": {},
+    "./features/src/cuda": {
+      "version": "12.5",
+      "installCompilers": false,
+      "installProfilers": true,
+      "installCTKLibraries": false,
+      "installDevPackages": false,
+      "installcuDNN": false,
+      "installcuTensor": false,
+      "installNCCL": false,
+      "installCUDARuntime": false,
+      "installNVRTC": false,
+      "installOpenCL": false,
+      "installcuBLAS": false,
+      "installcuSPARSE": false,
+      "installcuFFT": false,
+      "installcuFile": false,
+      "installcuRAND": false,
+      "installcuSOLVER": false,
+      "installNPP": false,
+      "installnvJPEG": false,
+      "pruneStaticLibs": true
+    }
   },
   "overrideFeatureInstallOrder": [
     "./features/src/utils",
     "./features/src/rapids-build-utils"
   ],
-  "initializeCommand": ["/bin/bash", "-c", "mkdir -m 0755 -p ${localWorkspaceFolder}/../.{aws,cache,config,conda/pkgs,conda/${localWorkspaceFolderBasename}-cuda12.5-envs,log/devcontainer-utils} ${localWorkspaceFolder}/../{rmm,kvikio,ucxx,cudf,raft,cuvs,cumlprims_mg,cuml,cugraph-ops,wholegraph,cugraph,cuspatial}"],
+  "initializeCommand": ["/bin/bash", "-c", "mkdir -m 0755 -p ${localWorkspaceFolder}/../.{aws,cache,config,config/emacs,conda/pkgs,local/share,conda/${localWorkspaceFolderBasename}-cuda12.5-envs,log/devcontainer-utils} ${localWorkspaceFolder}/../{rmm,kvikio,ucxx,cudf,raft,cuvs,cumlprims_mg,cuml,cugraph-ops,wholegraph,cugraph,cuspatial}"],
   "postAttachCommand": ["/bin/bash", "-c", "if [ ${CODESPACES:-false} = 'true' ]; then . devcontainer-utils-post-attach-command; fi"],
   "workspaceFolder": "/home/coder",
   "workspaceMount": "source=${localWorkspaceFolder},target=/home/coder/devcontainers,type=bind,consistency=consistent",
@@ -46,7 +81,14 @@
     "source=${localWorkspaceFolder}/../.conda/${localWorkspaceFolderBasename}-cuda12.5-envs,target=/home/coder/.conda/envs,type=bind,consistency=consistent",
     "source=${localWorkspaceFolder}/../.log/devcontainer-utils,target=/var/log/devcontainer-utils,type=bind,consistency=consistent",
     "source=${localWorkspaceFolder}/.devcontainer/cuda12.5-conda/features/src/utils/opt/devcontainer/bin,target=/opt/devcontainer/bin,type=bind,consistency=consistent",
-    "source=${localWorkspaceFolder}/.devcontainer/cuda12.5-conda/features/src/rapids-build-utils/opt/rapids-build-utils,target=/opt/rapids-build-utils,type=bind,consistency=consistent"
+    "source=${localWorkspaceFolder}/.devcontainer/cuda12.5-conda/features/src/rapids-build-utils/opt/rapids-build-utils,target=/opt/rapids-build-utils,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../first-party,target=/home/coder/first-party,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../third-party,target=/home/coder/third-party,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../.config/emacs,target=/home/coder/.config/emacs,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../../dotemacs/dotemacs,target=/home/coder/.config/emacs/init.el,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../../doodles/,target=/home/coder/doodles,type=bind,consistency=consistent",
+    "source=${localWorkspaceFolder}/../.local,target=/home/coder/.local,type=bind,consistency=consistent",
+    "source=/home/wence/.local/share/fonts/,target=/home/coder/.local/share/fonts,type=bind,consistency=consistent"
   ],
   "customizations": {
     "vscode": {

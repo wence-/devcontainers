@@ -1,0 +1,6 @@
+{
+  "name": "Install various useful utilities",
+  "id": "utils",
+  "version": "2.0",
+  "description": "A feature to install commandline utilities"
+}
