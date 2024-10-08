@@ -27,7 +27,7 @@
     "./features/src/rust": {
       "version": "latest",
       "profile": "default",
-      "additionaltoolchain": "nightly-2024-08-26 --profile default -c rust-analyzer rust-src clippy rustfmt miri cargo"
+      "additionaltoolchain": "nightly-2024-09-29 --profile default -c rust-analyzer rust-src clippy rustfmt miri cargo"
     },
     "ghcr.io/devcontainers/features/node:1": {},
     "./features/src/cuda": {
