@@ -166,9 +166,9 @@ EOF
 
 # shellcheck disable=SC2174
 for dir in $(for_each_user_bashrc 'echo "$(dirname "$(realpath -m "$0")")"'); do
-    # Copy in default git config
-    rm -f "${dir}"/.gitconfig;
-    cp .gitconfig "${dir}"/.gitconfig.default;
+    # # Copy in default git config
+    # rm -f "${dir}"/.gitconfig;
+    # cp .gitconfig "${dir}"/.gitconfig.default;
     # Copy in default .bash_completion
     cp .bash_completion "${dir}"/.bash_completion;
     mkdir -p -m 0755                                      \
