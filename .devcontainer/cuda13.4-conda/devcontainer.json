@@ -20,9 +20,21 @@
     "--env-file",
     "${localWorkspaceFolder}/.devcontainer/cuda13.4-conda/.env",
     "--ulimit",
-    "nofile=500000"
+    "nofile=500000",
+    "--device=nvidia.com/gpu=all",
+    "--privileged",
+    "--cap-add", "CAP_SYS_PTRACE",
+    "--cap-add", "CAP_SYS_ADMIN",
+    "--shm-size=8g",
+    "--net=host"
   ],
-  "containerEnv": {"PYTHON_VERSION": "3.13"},
+  "containerEnv": {
+    "PYTHON_VERSION": "3.13",
+    "OMP_NUM_THREADS": "1",
+    "OMPI_MCA_opal_cuda_support": "true",
+    "IPYTHONDIR": "/home/coder/.config/ipython/",
+    "EDITOR": "emacsclient"
+  },
   "hostRequirements": {"gpu": "optional"},
   "features": {
     "./features/src/cuda": {
@@ -48,7 +60,14 @@
       "pruneStaticLibs": true
     },
     "./features/src/utils": {},
-    "./features/src/rapids-build-utils": {}
+    "./features/src/rapids-build-utils": {},
+    "./features/local/emacs": {},
+    "./features/local/utils": {},
+    "./features/src/rust": {
+      "version": "latest",
+      "profile": "default",
+      "additionaltoolchain": "nightly-2026-09-01 --profile default -c rust-analyzer,rust-src,clippy,rustfmt,cargo"
+    }
   },
   "overrideFeatureInstallOrder": [
     "./features/src/cuda",

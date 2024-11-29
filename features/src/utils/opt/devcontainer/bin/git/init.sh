@@ -33,4 +33,5 @@ init_git_cli_config() {
     fi
 }
 
-init_git_cli_config "$@";
+echo "Init git disabled"
+# init_git_cli_config "$@";

@@ -14,6 +14,7 @@ RUST_VERSION="${VERSION:-"latest"}";
 RUSTUP_PROFILE="${PROFILE:-"minimal"}";
 RUSTUP_TARGETS="${TARGETS:-""}"
 IFS=',' read -ra components <<< "${COMPONENTS:-rust-analyzer,rust-src,rustfmt,clippy}"
+ADDITIONAL_TOOLCHAIN="${ADDITIONALTOOLCHAIN:-"none"}"
 
 # Ensure we're in this feature's directory during build
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
@@ -42,6 +43,7 @@ check_nightly_version_formatting() {
 
 export DEBIAN_FRONTEND=noninteractive;
 
+apt-get update
 gcc_pkgs="gcc g++";
 
 if [[ -n "${GCC_VERSION:-}" ]]; then
@@ -152,6 +154,11 @@ if [ -n "${RUSTUP_TARGETS}" ]; then
     done
 fi
 
+echo "Asked for additional toolchain: ${ADDITIONAL_TOOLCHAIN}"
+if [ "${ADDITIONAL_TOOLCHAIN}" != "none" ]; then
+    echo "Installing additional toolchain ${ADDITIONAL_TOOLCHAIN}"
+    rustup toolchain install ${ADDITIONAL_TOOLCHAIN}
+fi
 # Add CARGO_HOME, RUSTUP_HOME and bin directory into bashrc/zshrc files (unless disabled)
 if [ "${UPDATE_RC}" = "true" ]; then
     vars_=();
