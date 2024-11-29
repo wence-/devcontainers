@@ -2,7 +2,7 @@
   "[json]": {
     "editor.tabSize": 2,
     "editor.formatOnSave": false,
-    "editor.formatOnSaveMode": "file",
+    "editor.formatOnSaveMode": "file"
   },
   "[jsonc]": {
     "editor.tabSize": 2,

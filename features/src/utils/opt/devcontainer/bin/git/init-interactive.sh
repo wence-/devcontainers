@@ -23,4 +23,5 @@ init_git_cli_config_interactive() {
     fi
 }
 
-init_git_cli_config_interactive "$@";
+echo "Init git interactive disable";
+# init_git_cli_config_interactive "$@";
